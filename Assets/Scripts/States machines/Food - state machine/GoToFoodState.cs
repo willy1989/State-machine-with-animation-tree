@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EatFoodState : StateMachineBehaviour
+public class GoToFoodState : StateMachineBehaviour
 {
     private FoodManager foodManager;
+
+    private MoveManager moveManager;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         foodManager = animator.gameObject.GetComponent<FoodManager>();
+
+        moveManager = animator.gameObject.GetComponent<MoveManager>();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,14 +22,17 @@ public class EatFoodState : StateMachineBehaviour
         CheckCondition(animator);
     }
 
-    private void DoAction()
+    private void DoAction() 
     {
-        foodManager.EatFood();
+        if(foodManager.CurrentFoodTarget != null)
+            moveManager.SetDestination(foodManager.CurrentFoodTarget.transform.position);
     }
 
     private void CheckCondition(Animator animator)
     {
-        if (foodManager.CurrentFoodTarget == null)
-            animator.SetTrigger("SearchFood");
+        float distance = (foodManager.CurrentFoodTarget.transform.position - animator.transform.position).magnitude;
+
+        if (distance < 0.5f &&  foodManager.CurrentFoodTarget != null)
+            animator.SetTrigger("EatFood");
     }
 }

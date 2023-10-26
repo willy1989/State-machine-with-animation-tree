@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SearchFoodState : StateMachineBehaviour
 {
-    private FoodManager foodSearcher;
+    private FoodManager foodManager;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        foodSearcher = animator.gameObject.GetComponent<FoodManager>();
+        foodManager = animator.gameObject.GetComponent<FoodManager>();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,12 +19,14 @@ public class SearchFoodState : StateMachineBehaviour
 
     private void DoAction()
     {
-        foodSearcher.LookForFood();
+        foodManager.LookForFood();
     }
 
     private void CheckCondition(Animator animator)
     {
-        if (foodSearcher.CurrentFoodTarget != null)
+        if (foodManager.CurrentFoodTarget != null)
             animator.SetTrigger("GoToFood");
+        else
+            animator.SetTrigger("Exit");
     }
 }

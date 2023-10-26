@@ -23,7 +23,9 @@ public class FoodManager : MonoBehaviour
         }
     }
 
-    private float _foodCounter = 200f;
+    private float _foodCounter = 80f;
+
+    private float foodTreshold = 100f;
 
     public GameObject CurrentFoodTarget { get; private set; }
 
@@ -53,5 +55,10 @@ public class FoodManager : MonoBehaviour
 
             Destroy(CurrentFoodTarget);
         } 
+    }
+
+    public bool FoodCounterHighEnough()
+    {
+        return _foodCounter >= foodTreshold;
     }
 }
