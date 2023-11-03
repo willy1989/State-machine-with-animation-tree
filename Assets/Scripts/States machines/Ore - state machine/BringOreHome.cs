@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoToOre : StateMachineBehaviour
+public class BringOreHome : StateMachineBehaviour
 {
-    private OreManager oreManager;
-
     private MoveManager moveManager;
+
+    private OreManager oreManager;
 
     private FoodManager foodManager;
 
@@ -27,18 +27,17 @@ public class GoToOre : StateMachineBehaviour
 
     private void DoAction()
     {
-        if (oreManager.CurrentOreTarget != null)
-            moveManager.SetDestination(oreManager.CurrentOreTarget.transform.position);
+        moveManager.SetDestination(oreManager.baseBuildingLocation);
     }
 
     private void CheckCondition(Animator animator)
     {
-        float distance = (oreManager.CurrentOreTarget.transform.position - animator.transform.position).magnitude;
+        float distance = (oreManager.baseBuildingLocation - animator.transform.position).magnitude;
 
         if (foodManager.FoodCounterHighEnough() == false)
             animator.SetTrigger("FoodStateMachine");
 
-        else if (distance < 0.5f && oreManager.CurrentOreTarget != null)
-            animator.SetTrigger("GrabOre");
+        else if (distance < 0.5f)
+            animator.SetTrigger("DropOre");
     }
 }

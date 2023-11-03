@@ -6,9 +6,13 @@ public class SearchOreState : StateMachineBehaviour
 {
     private OreManager oreManager;
 
+    private FoodManager foodManager;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         oreManager = animator.gameObject.GetComponent<OreManager>();
+
+        foodManager = animator.gameObject.GetComponent<FoodManager>();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,9 +28,10 @@ public class SearchOreState : StateMachineBehaviour
 
     private void CheckCondition(Animator animator)
     {
-        if (oreManager.CurrentOreTarget != null)
+        if (foodManager.FoodCounterHighEnough() == false)
+            animator.SetTrigger("FoodStateMachine");
+
+        else if (oreManager.CurrentOreTarget != null)
             animator.SetTrigger("GoToOre");
-        else
-            animator.SetTrigger("Exit");
     }
 }

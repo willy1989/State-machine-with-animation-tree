@@ -23,7 +23,7 @@ public class FoodManager : MonoBehaviour
         }
     }
 
-    private float _foodCounter = 80f;
+    private float _foodCounter = 110f;
 
     private float foodTreshold = 100f;
 
@@ -51,7 +51,7 @@ public class FoodManager : MonoBehaviour
     {
         if(CurrentFoodTarget != null)
         {
-            FoodCounter += 1f;
+            FoodCounter += 25f;
 
             Destroy(CurrentFoodTarget);
         } 

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class OreManager : MonoBehaviour
 {
+    [SerializeField] private Transform baseBuilding;
+
+    public Vector3 baseBuildingLocation => baseBuilding.position;
+
     private Queue<GameObject> ores = new Queue<GameObject>();
 
     private int oreMaxCapacity = 3;
@@ -15,23 +19,23 @@ public class OreManager : MonoBehaviour
         CurrentOreTarget = GameObject.Find("Ore");
     }
 
-    public void GrabOre(GameObject ore)
+    public void GrabOre()
     {
-        if(ore.CompareTag("Ore") == false)
-            return;
-
         if (ores.Count >= oreMaxCapacity)
             return;
 
-        if ((ore.transform.position - this.transform.position).magnitude > 1f)
+        if ((CurrentOreTarget.transform.position - this.transform.position).magnitude > 1f)
             return;
 
-        ore.transform.parent = this.transform;
-        ore.transform.localPosition = Vector3.up * ores.Count;
-        ores.Enqueue(ore);
+        CurrentOreTarget.transform.parent = this.transform;
+        ores.Enqueue(CurrentOreTarget);
+        CurrentOreTarget.transform.localPosition = Vector3.up * ores.Count;
+        
+
+        CurrentOreTarget = null;
     }
 
-    public void DropOre(Vector3 dropLocation)
+    public void DropOre()
     {
         if (ores.Count <= 0)
             return;
@@ -40,6 +44,8 @@ public class OreManager : MonoBehaviour
 
         ore.transform.parent = null;
 
-        ore.transform.position = dropLocation;
+        ore.transform.position = baseBuildingLocation;
+
+        ore.name = "Collected ore";
     }
 }
