@@ -35,6 +35,11 @@ public class OreManager : MonoBehaviour
         CurrentOreTarget = null;
     }
 
+    public bool IsCarryingOre()
+    {
+        return ores.Count > 0;
+    }
+
     public void DropOre()
     {
         if (ores.Count <= 0)

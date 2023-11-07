@@ -23,7 +23,7 @@ public class FoodManager : MonoBehaviour
         }
     }
 
-    private float _foodCounter = 110f;
+    [SerializeField] private float _foodCounter = 110f;
 
     private float foodTreshold = 100f;
 

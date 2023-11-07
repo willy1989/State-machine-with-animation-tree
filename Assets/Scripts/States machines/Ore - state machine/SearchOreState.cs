@@ -8,6 +8,8 @@ public class SearchOreState : StateMachineBehaviour
 
     private FoodManager foodManager;
 
+    [SerializeField] private ConditionStatePair conditionStatePair;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         oreManager = animator.gameObject.GetComponent<OreManager>();
