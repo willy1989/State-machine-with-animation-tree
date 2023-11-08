@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SearchOreState : StateMachineBehaviour
 {
     private OreManager oreManager;
 
-    private FoodManager foodManager;
+    private List<ConditionStatePair> conditionStatePairs;
 
-    [SerializeField] private ConditionStatePair conditionStatePair;
+    private bool isSetUpDone = false;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        oreManager = animator.gameObject.GetComponent<OreManager>();
+        if(isSetUpDone == false)
+        {
+            oreManager = animator.gameObject.GetComponent<OreManager>();
 
-        foodManager = animator.gameObject.GetComponent<FoodManager>();
+            conditionStatePairs = animator.gameObject.GetComponentsInChildren<ConditionStatePair>().ToList();
+
+            isSetUpDone = true;
+        }
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -30,10 +36,16 @@ public class SearchOreState : StateMachineBehaviour
 
     private void CheckCondition(Animator animator)
     {
-        if (foodManager.FoodCounterHighEnough() == false)
-            animator.SetTrigger("FoodStateMachine");
+        foreach(ConditionStatePair pair in conditionStatePairs)
+        {
+            string stateName = pair.GetNextStateName();
 
-        else if (oreManager.CurrentOreTarget != null)
-            animator.SetTrigger("GoToOre");
+            if (stateName != string.Empty)
+            {
+                animator.SetTrigger(stateName);
+                break;
+            }
+                
+        }
     }
 }

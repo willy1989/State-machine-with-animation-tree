@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class ConditionStatePair
+public class ConditionStatePair : MonoBehaviour
 {
     [SerializeField] private Condition condition;
 
@@ -12,7 +11,7 @@ public class ConditionStatePair
 
     public string GetNextStateName()
     {
-        if(condition.ConditionIsTrueOrFalse() == true)
+        if(condition.ConditionIsTRUEorFALSE() == true)
             return stateName;
         else
             return string.Empty;

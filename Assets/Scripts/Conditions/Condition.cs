@@ -4,5 +4,12 @@ using UnityEngine;
 
 public abstract class Condition : MonoBehaviour
 {
-    public abstract bool ConditionIsTrueOrFalse();
+    [SerializeField] private bool trueOrFalse;
+
+    protected abstract bool conditionResult();
+
+    public bool ConditionIsTRUEorFALSE()
+    {
+        return conditionResult() == trueOrFalse;
+    }
 }
