@@ -9,7 +9,7 @@ public class PausedState : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        moveManager = animator.gameObject.GetComponent<MoveManager>();
+        moveManager = animator.gameObject.GetComponentInParent<MoveManager>();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -7,7 +7,7 @@ public class SearchOreState : StateMachineBehaviour
 {
     private OreManager oreManager;
 
-    private List<ConditionStatePair> conditionStatePairs;
+    private ConditionStatePair[] conditionStatePairs;
 
     private bool isSetUpDone = false;
 
@@ -15,9 +15,9 @@ public class SearchOreState : StateMachineBehaviour
     {
         if(isSetUpDone == false)
         {
-            oreManager = animator.gameObject.GetComponent<OreManager>();
+            oreManager = animator.gameObject.GetComponentInParent<OreManager>();
 
-            conditionStatePairs = animator.gameObject.GetComponentsInChildren<ConditionStatePair>().ToList();
+            conditionStatePairs = animator.gameObject.GetComponent<ConditionStatePairs>().Pairs;
 
             isSetUpDone = true;
         }

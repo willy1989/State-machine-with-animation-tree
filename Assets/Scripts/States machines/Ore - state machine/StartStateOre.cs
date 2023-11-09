@@ -9,7 +9,7 @@ public class StartStateOre : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        oreManager = animator.gameObject.GetComponent<OreManager>();
+        oreManager = animator.gameObject.GetComponentInParent<OreManager>();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
