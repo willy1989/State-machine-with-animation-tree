@@ -53,4 +53,12 @@ public class OreManager : MonoBehaviour
 
         ore.name = "Collected ore";
     }
+
+    public bool IsOreTargetCloseEnough()
+    {
+        if (CurrentOreTarget == null)
+            return false;
+
+        return (transform.position - CurrentOreTarget.transform.position).magnitude < 0.5f;
+    }
 }

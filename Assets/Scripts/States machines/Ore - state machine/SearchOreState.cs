@@ -9,15 +9,26 @@ public class SearchOreState : StateMachineBehaviour
 
     private ConditionStatePair[] conditionStatePairs;
 
+    [SerializeField] private string conditionStatePairKey;
+
     private bool isSetUpDone = false;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if(isSetUpDone == false)
         {
-            oreManager = animator.gameObject.GetComponentInParent<OreManager>();
+            oreManager = animator.gameObject.GetComponent<OreManager>();
 
-            conditionStatePairs = animator.gameObject.GetComponent<ConditionStatePairs>().Pairs;
+            ConditionStatePairGroup[] conditionStateGroups = animator.gameObject.GetComponentsInChildren<ConditionStatePairGroup>();
+
+            foreach(ConditionStatePairGroup group in conditionStateGroups)
+            {
+                if(group.GroupName == conditionStatePairKey)
+                {
+                    conditionStatePairs = group.Pairs;
+                    break;
+                }
+            }
 
             isSetUpDone = true;
         }
@@ -42,10 +53,17 @@ public class SearchOreState : StateMachineBehaviour
 
             if (stateName != string.Empty)
             {
-                animator.SetTrigger(stateName);
-                break;
+                if (stateName == "Exit")
+                {
+                    animator.Play("Exit");
+                }
+                    
+                else
+                {
+                    animator.SetTrigger(stateName);
+                    break;
+                }
             }
-                
         }
     }
 }

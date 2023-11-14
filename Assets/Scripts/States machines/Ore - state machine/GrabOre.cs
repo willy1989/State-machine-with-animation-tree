@@ -10,9 +10,9 @@ public class GrabOre : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        oreManager = animator.gameObject.GetComponentInParent<OreManager>();
+        oreManager = animator.gameObject.GetComponent<OreManager>();
 
-        foodManager = animator.gameObject.GetComponentInParent<FoodManager>();
+        foodManager = animator.gameObject.GetComponent<FoodManager>();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

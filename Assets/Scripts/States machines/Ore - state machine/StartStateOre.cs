@@ -5,11 +5,29 @@ using UnityEngine;
 
 public class StartStateOre : StateMachineBehaviour
 {
-    private OreManager oreManager;
+    private ConditionStatePair[] conditionStatePairs;
+
+    [SerializeField] private string conditionStatePairKey;
+
+    private bool isSetUpDone = false;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        oreManager = animator.gameObject.GetComponentInParent<OreManager>();
+        if (isSetUpDone == false)
+        {
+            ConditionStatePairGroup[] conditionStateGroups = animator.gameObject.GetComponentsInChildren<ConditionStatePairGroup>();
+
+            foreach (ConditionStatePairGroup group in conditionStateGroups)
+            {
+                if (group.GroupName == conditionStatePairKey)
+                {
+                    conditionStatePairs = group.Pairs;
+                    break;
+                }
+            }
+
+            isSetUpDone = true;
+        }
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,23 +37,24 @@ public class StartStateOre : StateMachineBehaviour
 
     private void CheckCondition(Animator animator)
     {
-        if(oreManager.IsCarryingOre() == true)
+        foreach (ConditionStatePair pair in conditionStatePairs)
         {
-            animator.SetTrigger("BringOreHome");
-        }
+            string stateName = pair.GetNextStateName();
 
-        else if (oreManager.CurrentOreTarget == null)
-            animator.SetTrigger("SearchOre");
+            if (stateName != string.Empty)
+            {
+                if (stateName == "Exit")
+                {
+                    animator.Play("Exit");
+                }
 
-        else if (oreManager.CurrentOreTarget != null)
-        {
-            float distanceToOre = (oreManager.CurrentOreTarget.transform.position - animator.transform.position).magnitude;
+                else
+                {
+                    animator.Play(stateName);
+                }
 
-            if (distanceToOre > 0.5f)
-                animator.SetTrigger("GoToOre");
-
-            else if (distanceToOre < 0.5f)
-                animator.SetTrigger("GrabOre");
+                break;
+            }
         }
     }
 }

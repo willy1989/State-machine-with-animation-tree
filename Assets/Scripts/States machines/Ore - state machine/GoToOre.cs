@@ -12,11 +12,11 @@ public class GoToOre : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        oreManager = animator.gameObject.GetComponentInParent<OreManager>();
+        oreManager = animator.gameObject.GetComponent<OreManager>();
 
-        moveManager = animator.gameObject.GetComponentInParent<MoveManager>();
+        moveManager = animator.gameObject.GetComponent<MoveManager>();
 
-        foodManager = animator.gameObject.GetComponentInParent<FoodManager>();
+        foodManager = animator.gameObject.GetComponent<FoodManager>();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
