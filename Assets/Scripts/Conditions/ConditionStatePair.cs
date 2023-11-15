@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConditionStatePair : MonoBehaviour
+[Serializable]
+public class ConditionStatePair
 {
     [SerializeField] private Condition condition;
 

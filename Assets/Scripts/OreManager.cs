@@ -61,4 +61,9 @@ public class OreManager : MonoBehaviour
 
         return (transform.position - CurrentOreTarget.transform.position).magnitude < 0.5f;
     }
+
+    public bool IsBaseCloseEnough()
+    {
+        return (transform.position - baseBuildingLocation).magnitude <= 2f;
+    }
 }
