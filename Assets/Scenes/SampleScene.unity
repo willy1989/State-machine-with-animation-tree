@@ -169,8 +169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groupName: GrabOre
   pairs:
-  - condition: {fileID: 1861037425}
-    stateName: Exit
   - condition: {fileID: 998104073}
     stateName: BringOreHome
 --- !u!1001 &144905034
@@ -326,8 +324,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groupName: SearchOre
   pairs:
-  - condition: {fileID: 1861037425}
-    stateName: Exit
   - condition: {fileID: 1463559941}
     stateName: GoToOre
 --- !u!1 &225450152
@@ -459,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c6b0f1fa05765459f66e53d1db081f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _foodCounter: 101
+  _foodCounter: 150
 --- !u!114 &225450162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1538,15 +1534,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9912e35cb978b248b765f28059a6643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groupName: StartState
+  groupName: StartOre
   pairs:
-  - condition: {fileID: 1861037425}
-    stateName: Exit
   - condition: {fileID: 998104073}
     stateName: BringOreHome
   - condition: {fileID: 176610379}
     stateName: SearchOre
-  - condition: {fileID: 1961152237}
+  - condition: {fileID: 1463559941}
     stateName: GoToOre
 --- !u!1 &1116603756
 GameObject:
@@ -2116,9 +2110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groupName: DropOre
   pairs:
-  - condition: {fileID: 1471107335}
-    stateName: Exit
-  - condition: {fileID: 1861037425}
+  - condition: {fileID: 931258830}
     stateName: SearchOre
 --- !u!1 &1861037423
 GameObject:

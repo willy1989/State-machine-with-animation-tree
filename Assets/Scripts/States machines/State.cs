@@ -6,12 +6,17 @@ public abstract class State : StateMachineBehaviour
 {
     [SerializeField] private string conditionStatePairKey;
 
-    [SerializeField] private ConditionStatePair[] conditionStatePairs;
+    private ConditionStatePair[] conditionStatePairs;
 
     private bool isSetUpDone = false;
 
 
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        SetUp(animator);
+    }
+
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         DoAction();
         CheckCondition(animator);
@@ -38,10 +43,6 @@ public abstract class State : StateMachineBehaviour
         }
     }
 
-    protected abstract void SpecificSetUp(Animator animator);
-
-    protected abstract void DoAction();
-
     protected void CheckCondition(Animator animator)
     {
         foreach (ConditionStatePair pair in conditionStatePairs)
@@ -50,17 +51,13 @@ public abstract class State : StateMachineBehaviour
 
             if (stateName != string.Empty)
             {
-                if (stateName == "Exit")
-                {
-                    animator.Play("Exit");
-                }
-
-                else
-                {
-                    animator.SetTrigger(stateName);
-                    break;
-                }
+                animator.SetTrigger(stateName);
+                return;
             }
         }
     }
+
+    protected abstract void SpecificSetUp(Animator animator);
+
+    protected abstract void DoAction();
 }
